@@ -5,7 +5,7 @@ led = 26
 GPIO.setup(led, GPIO.OUT)
 botton = 13
 GPIO.setup(botton, GPIO.IN)
-state = int(input())
+state = 0
 while True:
     if GPIO.input(botton):
         state = not state
