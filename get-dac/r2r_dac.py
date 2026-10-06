@@ -29,6 +29,9 @@ if __name__ == "__main__":
         while True:
             try:
                 voltage = float(input("Введите напряжение в Вольтах: "))
+                if not (0<= voltage <= 3.183):
+                    print("Введено неправильное значение")
+                    continue 
                 dac.set_voltage(voltage)
 
             except ValueError:
