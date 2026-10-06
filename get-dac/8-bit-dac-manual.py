@@ -1,8 +1,7 @@
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 leds = [16, 20, 21, 25, 26, 17, 27, 22]
-for i in leds:
-    GPIO.setup(i, GPIO.OUT)
+GPIO.setup(leds, GPIO.OUT)
 dynamic_range = 3.3
 
 def voltage_to_number(voltage):

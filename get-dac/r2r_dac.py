@@ -14,28 +14,13 @@ class R2R_DAC:
         GPIO.cleanup()
 
     def set_number(self, number):
-        if not (0 <= number <= 255):
-            print(f"Ошибка: число {number} выходит за пределы 0-255")
-        return
-
-        def number_to_dac(number):
-            binary = [int(element) for element in bin(number)[2:].zfill(8)]
-            GPIO.output(self.gpio_bits, binary)
+        binary = [int(element) for element in bin(number)[2:].zfill(8)]
+        print(binary)
+        for i in range(8):
+            GPIO.output(self.gpio_bits[i], binary[i])
 
     def set_voltage(self, voltage):
-        if not ( 0.0 <= voltage <= self.dynamic_range):
-            if self.verbose:
-                print(f"Напряжение {voltage} В выходит за диапазон (0.00 - {self.dynamic_range:2f} В)")
-                print("Устанавливаем 0.0 В")
-            self.set_number(0)
-            return 
-
-        number = int(voltage / self.dynamic_range * 255)
-
-        if self.verbose:
-            print(f"Напряжение {voltage:.2f} В -> Число {number}")
-
-        self.set_number(number)
+        self.set_number(int(voltage/self.dynamic_range* 255))
 
 if __name__ == "__main__":
     try:
@@ -51,4 +36,5 @@ if __name__ == "__main__":
 
     finally:
         dac.deinit()
+
 
